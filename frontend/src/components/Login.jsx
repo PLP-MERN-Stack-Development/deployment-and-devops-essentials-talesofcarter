@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LogIn } from "lucide-react";
+import { NotebookPen } from "lucide-react";
 
 export default function Login({ onLogin, onSwitchToRegister }) {
   const [email, setEmail] = useState("");
@@ -22,10 +22,10 @@ export default function Login({ onLogin, onSwitchToRegister }) {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-green-50 to-green-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         <div className="flex items-center justify-center mb-8">
-          <LogIn className="w-12 h-12 text-blue-600" />
+          <NotebookPen className="w-12 h-12 text-green-600" />
         </div>
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
           Welcome Back
@@ -49,7 +49,7 @@ export default function Login({ onLogin, onSwitchToRegister }) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 outline-none rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
               required
             />
           </div>
@@ -62,7 +62,7 @@ export default function Login({ onLogin, onSwitchToRegister }) {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none focus:border-transparent"
               required
             />
           </div>
@@ -70,7 +70,7 @@ export default function Login({ onLogin, onSwitchToRegister }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium cursor-pointer"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
@@ -80,7 +80,7 @@ export default function Login({ onLogin, onSwitchToRegister }) {
           Don't have an account?{" "}
           <button
             onClick={onSwitchToRegister}
-            className="text-blue-600 hover:underline font-medium"
+            className="text-green-600 hover:underline font-medium cursor-pointer"
           >
             Sign up
           </button>
