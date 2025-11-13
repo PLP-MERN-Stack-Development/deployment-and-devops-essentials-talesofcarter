@@ -33,11 +33,11 @@ export const notesService = {
     const response = await api.get("/api/notes");
     return response.data;
   },
-  create: async (title, content) => {
+  create: async (title, content = "") => {
     const response = await api.post("/api/notes", { title, content });
     return response.data;
   },
-  update: async (id, title, content) => {
+  update: async (id, title, content = "") => {
     const response = await api.put(`/api/notes/${id}`, { title, content });
     return response.data;
   },

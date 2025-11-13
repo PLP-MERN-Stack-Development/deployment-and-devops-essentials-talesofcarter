@@ -10,31 +10,34 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = () => {
+    setTimeout(() => {
       const token = localStorage.getItem("token");
       setIsAuthenticated(!!token);
       setLoading(false);
-    };
-    checkAuth();
+    }, 0);
   }, []);
 
+  // Login handler
   const handleLogin = async (email, password) => {
     const { token } = await authService.login(email, password);
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
   };
 
+  // Register handler
   const handleRegister = async (email, password) => {
     const { token } = await authService.register(email, password);
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
   };
 
+  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
   };
 
+  // Loading screen
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -43,20 +46,18 @@ function App() {
     );
   }
 
+  // Authenticated: Show Dashboard
   if (isAuthenticated) {
     return <Dashboard onLogout={handleLogout} />;
   }
 
-  if (showLogin) {
-    return (
-      <Login
-        onLogin={handleLogin}
-        onSwitchToRegister={() => setShowLogin(false)}
-      />
-    );
-  }
-
-  return (
+  // Not authenticated: Show Login or Register
+  return showLogin ? (
+    <Login
+      onLogin={handleLogin}
+      onSwitchToRegister={() => setShowLogin(false)}
+    />
+  ) : (
     <Register
       onRegister={handleRegister}
       onSwitchToLogin={() => setShowLogin(true)}

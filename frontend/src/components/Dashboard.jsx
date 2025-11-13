@@ -58,7 +58,7 @@ export default function Dashboard({ onLogout }) {
   };
 
   const handleDeleteNote = async (id) => {
-    if (!confirm("Are you sure you want to delete this note?")) return;
+    if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
       await notesService.delete(id);
@@ -94,7 +94,7 @@ export default function Dashboard({ onLogout }) {
 
         <button
           onClick={() => setShowNewNote(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition mb-6"
+          className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition mb-6 cursor-pointer"
         >
           <Plus className="w-5 h-5" />
           New Note
@@ -110,7 +110,7 @@ export default function Dashboard({ onLogout }) {
                 onChange={(e) =>
                   setNewNote({ ...newNote, title: e.target.value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-green-500 outline-none focus:border-transparent"
                 autoFocus
               />
               <textarea
@@ -119,12 +119,12 @@ export default function Dashboard({ onLogout }) {
                 onChange={(e) =>
                   setNewNote({ ...newNote, content: e.target.value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 h-32 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 h-32 focus:ring-2 focus:ring-green-500 outline-none focus:border-transparent"
               />
               <div className="flex gap-2">
                 <button
                   type="submit"
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                  className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition cursor-pointer"
                 >
                   <Save className="w-4 h-4" />
                   Save
@@ -135,7 +135,7 @@ export default function Dashboard({ onLogout }) {
                     setShowNewNote(false);
                     setNewNote({ title: "", content: "" });
                   }}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                   Cancel
@@ -147,7 +147,7 @@ export default function Dashboard({ onLogout }) {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="inline-block w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : notes.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
@@ -157,10 +157,10 @@ export default function Dashboard({ onLogout }) {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {notes.map((note) => (
               <div
-                key={note.id}
+                key={note._id}
                 className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition"
               >
-                {editingNote?.id === note.id ? (
+                {editingNote?._id === note._id ? (
                   <div>
                     <input
                       type="text"
@@ -171,22 +171,22 @@ export default function Dashboard({ onLogout }) {
                           title: e.target.value,
                         })
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded mb-3 focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     />
                     <textarea
-                      value={editingNote.content}
+                      value={editingNote.content || ""}
                       onChange={(e) =>
                         setEditingNote({
                           ...editingNote,
                           content: e.target.value,
                         })
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded mb-3 h-24 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded mb-3 h-24 focus:ring-2 outline-none focus:ring-green-500 focus:border-transparent"
                     />
                     <div className="flex gap-2">
                       <button
-                        onClick={() => handleUpdateNote(note.id)}
-                        className="flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm"
+                        onClick={() => handleUpdateNote(note._id)}
+                        className="flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm"
                       >
                         <Save className="w-4 h-4" />
                         Save
@@ -211,13 +211,13 @@ export default function Dashboard({ onLogout }) {
                     <div className="flex gap-2 pt-4 border-t">
                       <button
                         onClick={() => setEditingNote(note)}
-                        className="flex items-center gap-1 px-3 py-1 text-blue-600 hover:bg-blue-50 rounded transition text-sm"
+                        className="flex items-center gap-1 px-3 py-1 text-green-600 hover:bg-green-50 rounded transition text-sm"
                       >
                         <Edit2 className="w-4 h-4" />
                         Edit
                       </button>
                       <button
-                        onClick={() => handleDeleteNote(note.id)}
+                        onClick={() => handleDeleteNote(note._id)}
                         className="flex items-center gap-1 px-3 py-1 text-red-600 hover:bg-red-50 rounded transition text-sm"
                       >
                         <Trash2 className="w-4 h-4" />
